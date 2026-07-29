@@ -138,7 +138,7 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
       <section className="hero">
         <div className="hero-intro">
           <div className="hero-kicker">About me · Based in Ithaca and New York</div>
-          <h1>Hi, my name<br />is <em>Sydney.</em></h1>
+          <h1>Hi, my name<br />is <span>Sydney.</span></h1>
           <p>I&apos;m a junior at Cornell studying Information Science.</p>
           <div className="social-links" aria-label="Social links">
             <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
