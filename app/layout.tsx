@@ -13,20 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sydney-chin.sites.openai.com"),
+  metadataBase: new URL("https://sydney-chin.sydneychin13.chatgpt.site"),
   title: "Sydney Chin — Strategy, Design & Curious Things",
   description:
     "The personal portfolio of Sydney Chin: strategist, designer, writer, coffee enthusiast, and curious human.",
   openGraph: {
-    title: "Sydney Chin — I make complex things feel clear.",
-    description: "Strategy, design, culture, coffee, music, and ideas in progress.",
+    title: "Hi, my name is Sydney.",
+    description: "Sydney is a junior at Cornell studying Information Science.",
     type: "website",
     images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sydney Chin — I make complex things feel clear.",
-    description: "Strategy, design, culture, coffee, music, and ideas in progress.",
+    title: "Hi, my name is Sydney.",
+    description: "Sydney is a junior at Cornell studying Information Science.",
     images: ["/og.png"],
   },
   icons: {

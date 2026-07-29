@@ -40,13 +40,13 @@ const projectCards = [
 
 const coffees = [
   ["9.2", "Sey Coffee", "Bushwick, Brooklyn", "Ethiopia · Hamasho", "Floral, exacting, quietly theatrical."],
-  ["8.8", "Suited", "Financial District, NYC", "Colombia · Pink Bourbon", "A serious cup in an unexpectedly warm room."],
-  ["8.6", "La Cabra", "East Village, NYC", "Kenya · Kii AA", "Bright acidity, beautiful light, excellent pastry."],
+  ["8.8", "Suited", "Financial District, Nyc", "Colombia · Pink Bourbon", "A serious cup in an unexpectedly warm room."],
+  ["8.6", "La Cabra", "East Village, Nyc", "Kenya · Kii Aa", "Bright acidity, beautiful light, excellent pastry."],
   ["8.3", "Dayglow", "West Hollywood, LA", "Rwanda · Shyira", "Playful, obsessive, and worth the line."],
 ];
 
 const tracks = [
-  ["01", "Eusexua", "FKA twigs", "04:23"],
+  ["01", "Eusexua", "Fka twigs", "04:23"],
   ["02", "Baddy on the Floor", "Jamie xx · Honey Dijon", "03:42"],
   ["03", "Anything", "Adrianne Lenker", "03:57"],
   ["04", "Cherry-coloured Funk", "Cocteau Twins", "03:12"],
@@ -90,7 +90,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <button className="wordmark" onClick={() => selectTab("About Me")} aria-label="Sydney Chin — About Me">
-          <span className="mark">SC</span>
+          <span className="mark">S</span>
           <span className="name">Sydney Chin</span>
         </button>
         <nav className={menuOpen ? "nav open" : "nav"} aria-label="Primary navigation">
@@ -125,20 +125,42 @@ export default function Home() {
 }
 
 function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
+  const photos = [
+    { src: "/photos/placeholder-1.jpg", alt: "A weathered white wall and bench" },
+    { src: "/photos/placeholder-2.jpg", alt: "A sunlit courtyard with laundry overhead" },
+    { src: "/photos/placeholder-3.jpg", alt: "A modern architectural interior" },
+  ];
+  const [photo, setPhoto] = useState(0);
+  const showPhoto = (next: number) => setPhoto((next + photos.length) % photos.length);
+
   return (
     <>
       <section className="hero">
-        <div className="hero-kicker"><span className="status-dot" /> Strategist · Designer · Curious human</div>
-        <h1>I make complex<br />things feel <em>clear.</em></h1>
-        <div className="hero-bottom">
-          <p>I&apos;m Sydney—a strategist and maker working at the intersection of technology, culture, and human behavior.</p>
-          <div className="scroll-note"><span>Scroll to explore</span><i>↓</i></div>
+        <div className="hero-intro">
+          <div className="hero-kicker">About me · Based in Ithaca and New York</div>
+          <h1>Hi, my name<br />is <em>Sydney.</em></h1>
+          <p>I&apos;m a junior at Cornell studying Information Science.</p>
+          <div className="hero-footnote">More about me soon.</div>
         </div>
-        <div className="orbital" aria-hidden="true">
-          <div className="orbital-core">SC</div>
-          <span className="orbit orbit-one" />
-          <span className="orbit orbit-two" />
-          <span className="orbit-dot" />
+        <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photo placeholders">
+          <div className="photo-frame">
+            {photos.map((item, index) => (
+              <img
+                key={item.src}
+                src={item.src}
+                alt={item.alt}
+                className={index === photo ? "carousel-photo active" : "carousel-photo"}
+              />
+            ))}
+            <span className="photo-placeholder-note">Temporary photo</span>
+          </div>
+          <div className="carousel-controls">
+            <span>{String(photo + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}</span>
+            <div>
+              <button onClick={() => showPhoto(photo - 1)} aria-label="Previous photo">←</button>
+              <button onClick={() => showPhoto(photo + 1)} aria-label="Next photo">→</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -159,7 +181,7 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
         <div className="signal-grid">
           {[
             ["Thinking about", "How play changes the way adults learn."],
-            ["Listening to", "Eusexua · FKA twigs"],
+            ["Listening to", "Eusexua · Fka twigs"],
             ["Drinking", "A washed Ethiopian from Hamasho."],
           ].map(([label, value], index) => (
             <article className="signal-card" key={label}>
@@ -218,7 +240,7 @@ function Coffee() {
 
 function Music() {
   return <section className="music-layout">
-    <div className="album-art"><div className="disc" /><span>NOW PLAYING</span><h2>Currents<br />& Signals</h2><small>07 · JULY 2026</small></div>
+    <div className="album-art"><div className="disc" /><span>Now playing</span><h2>Currents<br />& Signals</h2><small>07 · July 2026</small></div>
     <div className="track-list">
       {tracks.map(([number, title, artist, time]) => <article key={title}><span>{number}</span><div><h3>{title}</h3><small>{artist}</small></div><time>{time}</time><button aria-label={`Play ${title}`}>▶</button></article>)}
     </div>
