@@ -140,7 +140,21 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
           <div className="hero-kicker">About me · Based in Ithaca and New York</div>
           <h1>Hi, my name<br />is <em>Sydney.</em></h1>
           <p>I&apos;m a junior at Cornell studying Information Science.</p>
-          <div className="hero-footnote">More about me soon.</div>
+          <div className="social-links" aria-label="Social links">
+            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
+            <a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram <Arrow /></a>
+            <a href="mailto:hello@sydneychin.com">Email <Arrow /></a>
+          </div>
+          <dl className="quick-facts">
+            <div>
+              <dt>Interests</dt>
+              <dd>Coffee · Music · Writing · Travel</dd>
+            </div>
+            <div>
+              <dt>Skills</dt>
+              <dd>Strategy · Research · Prototyping · Visual design</dd>
+            </div>
+          </dl>
         </div>
         <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photo placeholders">
           <div className="photo-frame">
@@ -164,8 +178,30 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
         </div>
       </section>
 
+      <section className="experience-section">
+        <div className="section-label"><span>01</span> Experience</div>
+        <div className="timeline">
+          {[
+            ["June 2024", "Graduated from Sleepy Hollow High School", "Sleepy Hollow, New York"],
+            ["August 2024", "Started at Cornell University", "Began studying Information Science in the College of Agriculture and Life Sciences."],
+            ["Summer 2025", "Studied abroad in Taiwan", "Spent the summer learning and living abroad."],
+            ["August 2025", "Began sophomore year at Cornell", "Continued exploring technology, design, and human behavior."],
+            ["Summer 2026", "Interned at IBM", "Worked on strategy and design projects. More details coming soon."],
+            ["August 2026", "Beginning junior year at Cornell", "The next chapter—still in progress."],
+          ].map(([date, title, description]) => (
+            <article className="timeline-item" key={date}>
+              <time>{date}</time>
+              <div>
+                <h2>{title}</h2>
+                <p>{description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="profile-section">
-        <div className="section-label"><span>01</span> About</div>
+        <div className="section-label"><span>02</span> About</div>
         <div className="profile-copy">
           <p className="lead">I believe the best ideas are both <span>rigorous</span> and a little bit <span>strange.</span></p>
           <div className="profile-columns">
@@ -177,7 +213,7 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
       </section>
 
       <section className="dispatches">
-        <div className="section-label"><span>02</span> Current signals</div>
+        <div className="section-label"><span>03</span> Current signals</div>
         <div className="signal-grid">
           {[
             ["Thinking about", "How play changes the way adults learn."],
