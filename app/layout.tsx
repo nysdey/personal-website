@@ -9,19 +9,21 @@ const geistSans = Geist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sydney-chin.sydneychin13.chatgpt.site"),
-  title: "Sydney Chin — Strategy, Design & Curious Things",
+  title: "Sydney Chin — Product, Data & Curious Things",
   description:
-    "The personal portfolio of Sydney Chin: strategist, designer, writer, coffee enthusiast, and curious human.",
+    "The personal portfolio of Sydney Chin: Information Science student at Cornell working across technical product management, sales engineering, and data analysis.",
   openGraph: {
     title: "Hi, my name is Sydney.",
-    description: "Sydney is a junior at Cornell studying Information Science.",
+    description:
+      "Junior at Cornell studying Information Science. Technical Product Manager at Hack4Impact, IBM Campus Ambassador.",
     type: "website",
     images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hi, my name is Sydney.",
-    description: "Sydney is a junior at Cornell studying Information Science.",
+    description:
+      "Junior at Cornell studying Information Science. Technical Product Manager at Hack4Impact, IBM Campus Ambassador.",
     images: ["/og.png"],
   },
   icons: {

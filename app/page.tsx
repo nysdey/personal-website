@@ -8,9 +8,9 @@ type Tab = (typeof tabs)[number];
 const tabMeta: Record<Exclude<Tab, "About Me">, { index: string; eyebrow: string; title: string; intro: string }> = {
   Projects: {
     index: "02",
-    eyebrow: "Selected work · 2024—2026",
-    title: "Systems, stories,\nand useful things.",
-    intro: "A selection of product strategy, visual systems, and experiments built to make complicated ideas feel inevitable.",
+    eyebrow: "Selected work · 2025—2026",
+    title: "Systems, tools,\nand useful things.",
+    intro: "Products and analyses built to take something tedious or messy and make the next decision obvious.",
   },
   "Coffee Reviews": {
     index: "03",
@@ -33,9 +33,107 @@ const tabMeta: Record<Exclude<Tab, "About Me">, { index: string; eyebrow: string
 };
 
 const projectCards = [
-  ["01", "The Game of the Deal", "Interactive strategy", "A behavioral learning experience that turns enterprise sales strategy into a competitive, memorable game."],
-  ["02", "Signal / Noise", "Research system", "A modular insight engine that helps teams find the story hiding inside messy qualitative research."],
-  ["03", "Future of Work", "Editorial experience", "A narrative system for making emerging technology feel tangible, human, and actionable."],
+  {
+    number: "01",
+    title: "BobBee",
+    type: "Automated intelligent sales outreach · July 2026",
+    copy: "Streamlines signal sources and uses watsonx.ai to build a prioritized outreach schedule with AI-generated emails based on real-time signals and seller preferences. It learns from seller feedback and refreshes strategy ad hoc to stay current.",
+    tags: ["watsonx.ai", "Next.js", "TypeScript"],
+    links: [
+      { label: "GitHub", href: "https://github.com/nysdey/ibm-watsonx-challenge" },
+      { label: "Demo", href: "https://www.youtube.com/watch?v=FgoginwGPZo" },
+    ],
+  },
+  {
+    number: "02",
+    title: "IBM Hive",
+    type: "Seller organization & relationship manager · July 2026",
+    copy: "A seller-enablement platform that acts as a source of truth for organizational mapping, team pairings, territory coverage, and pipeline—so reps stop guessing who owns what.",
+    tags: ["React", "Express", "PostgreSQL"],
+    links: [{ label: "GitHub", href: "https://github.com/nysdey/ibm-hive" }],
+  },
+  {
+    number: "03",
+    title: "County-Level Health & Community Factors",
+    type: "Data analysis · Fall 2025",
+    copy: "Modeled relationships between environmental, socioeconomic, and behavioral factors and mental and physical health outcomes across U.S. counties, identifying environmental accessibility as a potential policy lever.",
+    tags: ["Python", "Pandas", "Statsmodels"],
+    links: [{ label: "GitHub", href: "https://github.com/yanwe1/county_health_factors" }],
+  },
+];
+
+const timeline = [
+  {
+    date: "Aug 2026 — Present",
+    title: "Cornell Campus Ambassador",
+    org: "IBM · Ithaca, NY",
+    copy: "Serve as a liaison between IBM and Cornell, bringing IBM SkillsBuild and watsonx Bob learning opportunities to campus. Expanding and piloting the ambassador program, and collaborating with Hack4Impact on sponsored events like Bobathons, SkillsBuild workshops, and campus AI-learning events.",
+  },
+  {
+    date: "May 2026 — Present",
+    title: "Technical Product Manager",
+    org: "Cornell Hack4Impact · Ithaca, NY",
+    copy: "Lead a subteam of designers and developers building an AI-powered platform that helps families in Congo maintain their crops after volunteer farmers leave. Own the PRD, SDD, and semester roadmap; write and assign tickets weekly; meet with clients weekly.",
+  },
+  {
+    date: "May 2026 — Aug 2026",
+    title: "Technical Sales Solutions Intern",
+    org: "IBM · Brookhaven, GA",
+    copy: "Interviewed sellers to find workflow bottlenecks, then wrote and tested outreach scripts and analyzed results by industry, IT spend, and revenue. Built internal tools to automate personalized outreach and authored documentation handed to the Senior State Executive/VP. Led live watsonx Bob demos at the in-person WatsonX event. Ranked top five among interns: 11.1% call-connection rate, 2.4% positive-call rate.",
+  },
+  {
+    date: "Feb 2026 — May 2026",
+    title: "Product Strategist & Developer",
+    org: "Cornell Hack4Impact · Ithaca, NY",
+    copy: "Sourced and vetted social-impact nonprofits, led exploratory calls, and drafted technical solution outlines. Shipped features for the Endowment Manager (a full-stack PERN app for small nonprofits) and built inventory management for the Hudson Valley Textile Project's Northeast Fiber Exchange, tracking wool expiration and delivering real-time inventory during sales.",
+  },
+  {
+    date: "Dec 2025 — Feb 2026",
+    title: "Business Analyst Intern",
+    org: "Timing LLC · Remote",
+    copy: "Built WAU engagement models, ideal customer profiles, and user surveys. Developed a campus acquisition plan, led sponsorship outreach, and wrote the newsletter.",
+  },
+  {
+    date: "Aug 2024 — Dec 2025",
+    title: "Research Assistant",
+    org: "Cornell Phonetics Lab · Ithaca, NY",
+    copy: "Analyzed speech-transcript data with Python, NumPy, SciPy, and Matplotlib. Built a reproducible TextGrid-processing workflow and mentored seven research assistants.",
+  },
+  {
+    date: "Aug 2024 — Dec 2027",
+    title: "Cornell University",
+    org: "Bowers College of Computing and Information Sciences",
+    copy: "B.A. in Information Science, concentrating in Networks, Crowds, and Markets. GPA 3.5. Coursework in business intelligence systems, object-oriented programming and data structures, data science in Python, probability and statistics, econometrics, and information ethics, law, and policy.",
+  },
+];
+
+const skillGroups = [
+  ["Programming & web", "Python · Java · JavaScript · TypeScript · R · SQL"],
+  ["Frameworks", "React · Next.js · Express · Flask · HTML/CSS"],
+  ["Data & analysis", "Pandas · NumPy · SciPy · Scikit-learn · Statsmodels · Matplotlib · Plotly"],
+  ["Tools & platforms", "PostgreSQL · Firebase · Git · Figma · watsonx · Salesforce · Salesloft"],
+  ["Product", "PRDs & SDDs · Roadmapping · Agile sprints · Client discovery · User research"],
+];
+
+const leadership = [
+  {
+    role: "Analyst, Emerging Leaders Program",
+    org: "Cornell Society of Women in Business",
+    date: "Feb 2025 — May 2025",
+    copy: "Specialized in impact investing and ESG, evaluating how sustainability drives investment decisions. Delivered a capstone on Patagonia's investing practices.",
+  },
+  {
+    role: "Volunteer Instructor",
+    org: "Girls Who Code · Advanced Coding",
+    date: "Feb 2025 — May 2025",
+    copy: "Taught middle and high school students HTML, CSS, and game development in weekly 1.5-hour classes.",
+  },
+  {
+    role: "Founder & Event Organizer",
+    org: "Competitive Tetris Tournaments",
+    date: "Sep 2020 — Mar 2024",
+    copy: "Ran online tournaments for a community of 7,000+ members and 600+ Twitch followers, raising $2,600 for a children's hospital through Extra Life.",
+  },
 ];
 
 const coffees = [
@@ -117,8 +215,8 @@ export default function Home() {
 
       <footer>
         <span>© 2026 Sydney Chin</span>
-        <span className="footer-center">New York · 40.7128° N</span>
-        <a href="mailto:hello@sydneychin.com">Let&apos;s talk <Arrow /></a>
+        <span className="footer-center">Ithaca, NY · 42.4440° N</span>
+        <a href="mailto:scc273@cornell.edu">Let&apos;s talk <Arrow /></a>
       </footer>
     </main>
   );
@@ -139,20 +237,32 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
         <div className="hero-intro">
           <div className="hero-kicker">About me · Based in Ithaca and New York</div>
           <h1>Hi, my name<br />is <span>Sydney.</span></h1>
-          <p>I&apos;m a junior at Cornell studying Information Science.</p>
+          <p>
+            I&apos;m a junior at Cornell studying Information Science, concentrating in Networks,
+            Crowds, and Markets. I sit between product, sales, and data—most recently building
+            outreach automation at IBM and leading a Hack4Impact team building software for nonprofits.
+          </p>
           <div className="social-links" aria-label="Social links">
-            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-            <a href="https://www.instagram.com" target="_blank" rel="noreferrer">Instagram <Arrow /></a>
-            <a href="mailto:hello@sydneychin.com">Email <Arrow /></a>
+            <a href="https://www.linkedin.com/in/sydney-chin/" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
+            <a href="https://github.com/nysdey" target="_blank" rel="noreferrer">GitHub <Arrow /></a>
+            <a href="mailto:scc273@cornell.edu">Email <Arrow /></a>
           </div>
           <dl className="quick-facts">
             <div>
-              <dt>Interests</dt>
-              <dd>Coffee · Music · Writing · Travel</dd>
+              <dt>Education</dt>
+              <dd>Cornell University · B.A. Information Science, Networks, Crowds &amp; Markets · Dec 2027</dd>
             </div>
             <div>
-              <dt>Skills</dt>
-              <dd>Strategy · Research · Prototyping · Visual design</dd>
+              <dt>Now</dt>
+              <dd>IBM Campus Ambassador · Technical Product Manager at Cornell Hack4Impact</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>Technical product management · Sales engineering · Data analysis</dd>
+            </div>
+            <div>
+              <dt>Interests</dt>
+              <dd>Coffee · Music · Writing · Travel</dd>
             </div>
           </dl>
         </div>
@@ -181,19 +291,13 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
       <section className="experience-section">
         <div className="section-label"><span>01</span> Experience</div>
         <div className="timeline">
-          {[
-            ["June 2024", "Graduated from Sleepy Hollow High School", "Sleepy Hollow, New York"],
-            ["August 2024", "Started at Cornell University", "Began studying Information Science in the College of Agriculture and Life Sciences."],
-            ["Summer 2025", "Studied abroad in Taiwan", "Spent the summer learning and living abroad."],
-            ["August 2025", "Began sophomore year at Cornell", "Continued exploring technology, design, and human behavior."],
-            ["Summer 2026", "Interned at IBM", "Worked on strategy and design projects. More details coming soon."],
-            ["August 2026", "Beginning junior year at Cornell", "The next chapter—still in progress."],
-          ].map(([date, title, description]) => (
-            <article className="timeline-item" key={date}>
-              <time>{date}</time>
+          {timeline.map((item) => (
+            <article className="timeline-item" key={item.date + item.title}>
+              <time>{item.date}</time>
               <div>
-                <h2>{title}</h2>
-                <p>{description}</p>
+                <h2>{item.title}</h2>
+                <small>{item.org}</small>
+                <p>{item.copy}</p>
               </div>
             </article>
           ))}
@@ -203,20 +307,48 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
       <section className="profile-section">
         <div className="section-label"><span>02</span> About</div>
         <div className="profile-copy">
-          <p className="lead">I believe the best ideas are both <span>rigorous</span> and a little bit <span>strange.</span></p>
+          <p className="lead">I like the problems where <span>the messy part</span> is figuring out what to build <span>at all.</span></p>
           <div className="profile-columns">
-            <p>I turn ambiguity into systems people can understand and use. My work moves between strategy, storytelling, and design—often all at once.</p>
-            <p>Outside of work, I&apos;m usually finding an excellent light-roast coffee, building a very specific playlist, or writing down something I noticed.</p>
+            <p>My work keeps landing in the same place: a team knows something is slow, expensive, or confusing, but nobody has written down what &quot;fixed&quot; looks like. I interview the people doing the work, turn it into a spec, and then build enough of it to prove the idea holds.</p>
+            <p>That&apos;s been sales workflows at IBM, crop-management software for families in Congo, inventory for a textile nonprofit, and county-level health data. Outside of it, I&apos;m usually finding an excellent light-roast coffee, building a very specific playlist, or writing down something I noticed.</p>
           </div>
           <button className="text-link" onClick={() => onNavigate("Projects")}>Explore selected work <Arrow /></button>
         </div>
       </section>
 
+      <section className="toolkit-section">
+        <div className="section-label"><span>03</span> Toolkit</div>
+        <dl className="toolkit-grid">
+          {skillGroups.map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="leadership-section">
+        <div className="section-label"><span>04</span> Leadership</div>
+        <div className="leadership-list">
+          {leadership.map((item) => (
+            <article key={item.role + item.org}>
+              <div>
+                <h2>{item.role}</h2>
+                <small>{item.org}</small>
+              </div>
+              <p>{item.copy}</p>
+              <time>{item.date}</time>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="dispatches">
-        <div className="section-label"><span>03</span> Current signals</div>
+        <div className="section-label"><span>05</span> Current signals</div>
         <div className="signal-grid">
           {[
-            ["Thinking about", "How play changes the way adults learn."],
+            ["Building", "An AI crop-management platform with Hack4Impact."],
             ["Listening to", "Eusexua · Fka twigs"],
             ["Drinking", "A washed Ethiopian from Hamasho."],
           ].map(([label, value], index) => (
@@ -254,10 +386,24 @@ function Collection({ tab }: { tab: Exclude<Tab, "About Me"> }) {
 
 function Projects() {
   return <section className="project-list">
-    {projectCards.map(([number, title, type, copy]) => (
-      <article className="project-card" key={title}>
-        <div className="project-visual"><span>{number}</span><div className="project-sphere" /></div>
-        <div className="project-info"><small>{type}</small><h2>{title}</h2><p>{copy}</p><button aria-label={`Open ${title}`}><Arrow /></button></div>
+    {projectCards.map((project) => (
+      <article className="project-card" key={project.title}>
+        <div className="project-visual"><span>{project.number}</span><div className="project-sphere" /></div>
+        <div className="project-info">
+          <small>{project.type}</small>
+          <h2>{project.title}</h2>
+          <p>{project.copy}</p>
+          <ul className="project-tags">
+            {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
+          </ul>
+          <div className="project-links">
+            {project.links.map((link) => (
+              <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
+                {link.label} <Arrow />
+              </a>
+            ))}
+          </div>
+        </div>
       </article>
     ))}
   </section>;
