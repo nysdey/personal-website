@@ -177,6 +177,25 @@ function About() {
     { src: "/media/curvy-tree.jpg", alt: "Sydney standing beside a curved evergreen tree on campus", position: "center center" },
   ];
   const [photo, setPhoto] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncMotion = () => setPlaying(!preference.matches);
+    syncMotion();
+    preference.addEventListener("change", syncMotion);
+    return () => preference.removeEventListener("change", syncMotion);
+  }, []);
+
+  useEffect(() => {
+    if (!playing || hovered) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setPhoto((current) => (current + 1) % photos.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [playing, hovered, photos.length]);
+
   const showPhoto = (next: number) => setPhoto((next + photos.length) % photos.length);
 
   return (
@@ -214,21 +233,23 @@ function About() {
             </div>
           </dl>
         </div>
-        <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photos of Sydney">
+        <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photos of Sydney"
+          onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
           <div className="photo-frame">
             {photos.map((item, index) => (
               <img
                 key={item.src}
                 src={item.src}
                 alt={item.alt}
-                style={{ objectPosition: item.position }}
                 aria-hidden={index !== photo}
                 className={index === photo ? "carousel-photo active" : "carousel-photo"}
               />
             ))}
           </div>
           <div className="carousel-controls">
+            <span>{photo + 1} / {photos.length}</span>
             <div>
+              <button className="rotation-button" onClick={() => setPlaying((current) => !current)} aria-label={playing ? "Pause photo rotation" : "Start photo rotation"}>{playing ? "Pause" : "Play"}</button>
               <button onClick={() => showPhoto(photo - 1)} aria-label="Previous photo">←</button>
               <button onClick={() => showPhoto(photo + 1)} aria-label="Next photo">→</button>
             </div>
