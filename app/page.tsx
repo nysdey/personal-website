@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const tabs = ["About Me", "Projects", "Coffee Reviews", "Music", "Writing"] as const;
+const tabs = ["About Me", "Projects", "Music"] as const;
 type Tab = (typeof tabs)[number];
 
 const tabMeta: Record<Exclude<Tab, "About Me">, { index: string; eyebrow: string; title: string; intro: string }> = {
@@ -12,23 +12,11 @@ const tabMeta: Record<Exclude<Tab, "About Me">, { index: string; eyebrow: string
     title: "Systems, tools,\nand useful things.",
     intro: "Products and analyses built to take something tedious or messy and make the next decision obvious.",
   },
-  "Coffee Reviews": {
-    index: "03",
-    eyebrow: "A running field guide",
-    title: "Coffee, considered.",
-    intro: "Notes on places worth crossing town for—judged by the cup, the room, and whether I wanted to stay.",
-  },
   Music: {
-    index: "04",
+    index: "03",
     eyebrow: "In rotation · Issue 07",
     title: "What the week\nsounds like.",
     intro: "Albums, mixes, and fragments currently shaping the atmosphere.",
-  },
-  Writing: {
-    index: "05",
-    eyebrow: "Notes & observations",
-    title: "Ideas in progress.",
-    intro: "Essays about design, attention, culture, and the invisible systems underneath everyday life.",
   },
 };
 
@@ -136,25 +124,12 @@ const leadership = [
   },
 ];
 
-const coffees = [
-  ["9.2", "Sey Coffee", "Bushwick, Brooklyn", "Ethiopia · Hamasho", "Floral, exacting, quietly theatrical."],
-  ["8.8", "Suited", "Financial District, Nyc", "Colombia · Pink Bourbon", "A serious cup in an unexpectedly warm room."],
-  ["8.6", "La Cabra", "East Village, Nyc", "Kenya · Kii Aa", "Bright acidity, beautiful light, excellent pastry."],
-  ["8.3", "Dayglow", "West Hollywood, LA", "Rwanda · Shyira", "Playful, obsessive, and worth the line."],
-];
-
 const tracks = [
   ["01", "Eusexua", "Fka twigs", "04:23"],
   ["02", "Baddy on the Floor", "Jamie xx · Honey Dijon", "03:42"],
   ["03", "Anything", "Adrianne Lenker", "03:57"],
   ["04", "Cherry-coloured Funk", "Cocteau Twins", "03:12"],
   ["05", "Sunset", "Caroline Polachek", "02:43"],
-];
-
-const essays = [
-  ["07.18.26", "The interface is the institution", "How the tools we use quietly determine what organizations believe is possible.", "8 min"],
-  ["06.02.26", "Against frictionless everything", "A case for the small moments of resistance that make experiences memorable.", "5 min"],
-  ["04.11.26", "Taste is a form of attention", "On references, discernment, and learning to notice what you actually like.", "6 min"],
 ];
 
 function Arrow() {
@@ -379,9 +354,7 @@ function Collection({ tab }: { tab: Exclude<Tab, "About Me"> }) {
         <p>{meta.intro}</p>
       </section>
       {tab === "Projects" && <Projects />}
-      {tab === "Coffee Reviews" && <Coffee />}
       {tab === "Music" && <Music />}
-      {tab === "Writing" && <Writing />}
     </>
   );
 }
@@ -411,29 +384,11 @@ function Projects() {
   </section>;
 }
 
-function Coffee() {
-  return <section className="coffee-list">
-    <div className="list-head"><span>Score</span><span>Café</span><span>Location / Coffee</span><span>Impression</span></div>
-    {coffees.map(([score, cafe, location, coffee, note]) => (
-      <article key={cafe}>
-        <strong>{score}</strong><h2>{cafe}</h2><div><span>{location}</span><small>{coffee}</small></div><p>{note}</p>
-      </article>
-    ))}
-  </section>;
-}
-
 function Music() {
   return <section className="music-layout">
     <div className="album-art"><div className="disc" /><span>Now playing</span><h2>Currents<br />& Signals</h2><small>07 · July 2026</small></div>
     <div className="track-list">
       {tracks.map(([number, title, artist, time]) => <article key={title}><span>{number}</span><div><h3>{title}</h3><small>{artist}</small></div><time>{time}</time><button aria-label={`Play ${title}`}>▶</button></article>)}
     </div>
-  </section>;
-}
-
-function Writing() {
-  return <section className="writing-list">
-    {essays.map(([date, title, summary, read]) => <article key={title}><time>{date}</time><h2>{title}</h2><p>{summary}</p><span>{read} read</span><button aria-label={`Read ${title}`}><Arrow /></button></article>)}
-    <div className="newsletter"><span>Occasional dispatches</span><h2>Good ideas, infrequently.</h2><p>Notes on things I&apos;m noticing, delivered only when there&apos;s something worth saying.</p><div><input type="email" aria-label="Email address" placeholder="you@email.com" /><button>Subscribe <Arrow /></button></div></div>
   </section>;
 }

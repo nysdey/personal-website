@@ -54,8 +54,7 @@ h1 > span { font-family: inherit; font-weight: inherit; color: var(--violet); ba
 .quick-facts dd { margin: 0; color: #acb1ba; font-size: 12px; line-height: 1.5; }
 .photo-carousel { position: relative; z-index: 2; width: 100%; max-width: 520px; justify-self: end; }
 .photo-frame { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid rgba(235,240,255,.26); background: #15171c; box-shadow: 0 24px 80px rgba(0,0,0,.38); }
-.photo-frame::after { content: ""; position: absolute; inset: 0; background: linear-gradient(125deg,rgba(255,255,255,.16),transparent 25%,transparent 70%,rgba(69,137,255,.12)); pointer-events: none; mix-blend-mode: screen; }
-.carousel-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.55) contrast(1.08) brightness(.72); opacity: 0; transform: scale(1.025); transition: opacity .55s ease, transform .8s ease; }
+.carousel-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.025); transition: opacity .55s ease, transform .8s ease; }
 .carousel-photo.active { opacity: 1; transform: scale(1); }
 .photo-placeholder-note { position: absolute; z-index: 2; top: 18px; left: 18px; padding: 8px 10px; background: rgba(8,9,12,.74); border: 1px solid rgba(255,255,255,.18); color: #c7cad0; font: 9px var(--font-geist-sans); letter-spacing: .04em; }
 .carousel-controls { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; color: #737985; font: 10px var(--font-geist-sans); }
