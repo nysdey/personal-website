@@ -5,15 +5,13 @@ import { useEffect, useState } from "react";
 const tabs = ["About Me", "Projects", "Music"] as const;
 type Tab = (typeof tabs)[number];
 
-const tabMeta: Record<Exclude<Tab, "About Me">, { index: string; eyebrow: string; title: string; intro: string }> = {
+const tabMeta: Record<Exclude<Tab, "About Me">, { eyebrow: string; title: string; intro: string }> = {
   Projects: {
-    index: "02",
     eyebrow: "Selected work · 2025—2026",
     title: "Systems, tools,\nand useful things.",
     intro: "Products and analyses built to take something tedious or messy and make the next decision obvious.",
   },
   Music: {
-    index: "03",
     eyebrow: "In rotation · Issue 07",
     title: "What the week\nsounds like.",
     intro: "Albums, mixes, and fragments currently shaping the atmosphere.",
@@ -22,7 +20,6 @@ const tabMeta: Record<Exclude<Tab, "About Me">, { index: string; eyebrow: string
 
 const projectCards = [
   {
-    number: "01",
     title: "BobBee",
     type: "Automated intelligent sales outreach · July 2026",
     copy: "Streamlines signal sources and uses watsonx.ai to build a prioritized outreach schedule with AI-generated emails based on real-time signals and seller preferences. It learns from seller feedback and refreshes strategy ad hoc to stay current.",
@@ -33,7 +30,6 @@ const projectCards = [
     ],
   },
   {
-    number: "02",
     title: "IBM Hive",
     type: "Seller organization & relationship manager · July 2026",
     copy: "A seller-enablement platform that acts as a source of truth for organizational mapping, team pairings, territory coverage, and pipeline—so reps stop guessing who owns what.",
@@ -41,7 +37,6 @@ const projectCards = [
     links: [{ label: "GitHub", href: "https://github.com/nysdey/ibm-hive" }],
   },
   {
-    number: "03",
     title: "County-Level Health & Community Factors",
     type: "Data analysis · Fall 2025",
     copy: "Modeled relationships between environmental, socioeconomic, and behavioral factors and mental and physical health outcomes across U.S. counties, identifying environmental accessibility as a potential policy lever.",
@@ -103,27 +98,6 @@ const skillGroups = [
   ["Product", "PRDs & SDDs · Roadmapping · Agile sprints · Client discovery · User research"],
 ];
 
-const leadership = [
-  {
-    role: "Analyst, Emerging Leaders Program",
-    org: "Cornell Society of Women in Business",
-    date: "Feb 2025 — May 2025",
-    copy: "Specialized in impact investing and ESG, evaluating how sustainability drives investment decisions. Delivered a capstone on Patagonia's investing practices.",
-  },
-  {
-    role: "Volunteer Instructor",
-    org: "Girls Who Code · Advanced Coding",
-    date: "Feb 2025 — May 2025",
-    copy: "Taught middle and high school students HTML, CSS, and game development in weekly 1.5-hour classes.",
-  },
-  {
-    role: "Founder & Event Organizer",
-    org: "Competitive Tetris Tournaments",
-    date: "Sep 2020 — Mar 2024",
-    copy: "Ran online tournaments for a community of 7,000+ members and 600+ Twitch followers, raising $2,600 for a children's hospital through Extra Life.",
-  },
-];
-
 const tracks = [
   ["01", "Eusexua", "Fka twigs", "04:23"],
   ["02", "Baddy on the Floor", "Jamie xx · Honey Dijon", "03:42"],
@@ -163,18 +137,17 @@ export default function Home() {
     <main>
       <header className="site-header">
         <button className="wordmark" onClick={() => selectTab("About Me")} aria-label="Sydney Chin — About Me">
-          <span className="mark">S</span>
           <span className="name">Sydney Chin</span>
         </button>
         <nav className={menuOpen ? "nav open" : "nav"} aria-label="Primary navigation">
-          {tabs.map((tab, index) => (
+          {tabs.map((tab) => (
             <button
               key={tab}
               className={active === tab ? "nav-item active" : "nav-item"}
               onClick={() => selectTab(tab)}
               aria-current={active === tab ? "page" : undefined}
             >
-              <span>0{index + 1}</span>{tab}
+              {tab}
             </button>
           ))}
         </nav>
@@ -185,19 +158,18 @@ export default function Home() {
       </header>
 
       <div className="page-shell" key={active}>
-        {active === "About Me" ? <About onNavigate={selectTab} /> : <Collection tab={active} />}
+        {active === "About Me" ? <About /> : <Collection tab={active} />}
       </div>
 
       <footer>
         <span>© 2026 Sydney Chin</span>
-        <span className="footer-center">Ithaca, NY · 42.4440° N</span>
-        <a href="mailto:scc273@cornell.edu">Let&apos;s talk <Arrow /></a>
+        <span className="footer-center">Ithaca, NY</span>
       </footer>
     </main>
   );
 }
 
-function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
+function About() {
   const photos = [
     { src: "/media/sydney-with-bob.jpg", alt: "Sydney holding a Bob cutout at the IBMer watsonx Challenge", position: "48% center" },
     { src: "/media/ropes.JPG", alt: "Sydney climbing a rope structure in the evening sunshine", position: "center center" },
@@ -256,7 +228,6 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
             ))}
           </div>
           <div className="carousel-controls">
-            <span>{String(photo + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}</span>
             <div>
               <button onClick={() => showPhoto(photo - 1)} aria-label="Previous photo">←</button>
               <button onClick={() => showPhoto(photo + 1)} aria-label="Next photo">→</button>
@@ -266,7 +237,7 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
       </section>
 
       <section className="experience-section">
-        <div className="section-label"><span>01</span> Experience</div>
+        <h2 className="section-label">Experience</h2>
         <div className="timeline">
           {timeline.map((item) => (
             <article className="timeline-item" key={item.date + item.title}>
@@ -281,20 +252,8 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
         </div>
       </section>
 
-      <section className="profile-section">
-        <div className="section-label"><span>02</span> About</div>
-        <div className="profile-copy">
-          <p className="lead">I like the problems where <span>the messy part</span> is figuring out what to build <span>at all.</span></p>
-          <div className="profile-columns">
-            <p>My work keeps landing in the same place: a team knows something is slow, expensive, or confusing, but nobody has written down what &quot;fixed&quot; looks like. I interview the people doing the work, turn it into a spec, and then build enough of it to prove the idea holds.</p>
-            <p>That&apos;s been sales workflows at IBM, crop-management software for families in Congo, inventory for a textile nonprofit, and county-level health data. Outside of it, I&apos;m usually finding an excellent light-roast coffee, building a very specific playlist, or writing down something I noticed.</p>
-          </div>
-          <button className="text-link" onClick={() => onNavigate("Projects")}>Explore selected work <Arrow /></button>
-        </div>
-      </section>
-
       <section className="toolkit-section">
-        <div className="section-label"><span>03</span> Toolkit</div>
+        <h2 className="section-label">Toolkit</h2>
         <dl className="toolkit-grid">
           {skillGroups.map(([label, value]) => (
             <div key={label}>
@@ -303,39 +262,6 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
             </div>
           ))}
         </dl>
-      </section>
-
-      <section className="leadership-section">
-        <div className="section-label"><span>04</span> Leadership</div>
-        <div className="leadership-list">
-          {leadership.map((item) => (
-            <article key={item.role + item.org}>
-              <div>
-                <h2>{item.role}</h2>
-                <small>{item.org}</small>
-              </div>
-              <p>{item.copy}</p>
-              <time>{item.date}</time>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="dispatches">
-        <div className="section-label"><span>05</span> Current signals</div>
-        <div className="signal-grid">
-          {[
-            ["Building", "An AI crop-management platform with Hack4Impact."],
-            ["Listening to", "Eusexua · Fka twigs"],
-            ["Drinking", "A washed Ethiopian from Hamasho."],
-          ].map(([label, value], index) => (
-            <article className="signal-card" key={label}>
-              <span>0{index + 1}</span>
-              <small>{label}</small>
-              <p>{value}</p>
-            </article>
-          ))}
-        </div>
       </section>
     </>
   );
@@ -346,7 +272,6 @@ function Collection({ tab }: { tab: Exclude<Tab, "About Me"> }) {
   return (
     <>
       <section className="collection-hero">
-        <div className="collection-index">{meta.index}</div>
         <div>
           <div className="hero-kicker">{meta.eyebrow}</div>
           <h1>{meta.title.split("\n").map((line) => <span key={line}>{line}<br /></span>)}</h1>
@@ -363,7 +288,6 @@ function Projects() {
   return <section className="project-list">
     {projectCards.map((project) => (
       <article className="project-card" key={project.title}>
-        <div className="project-visual"><span>{project.number}</span><div className="project-sphere" /></div>
         <div className="project-info">
           <small>{project.type}</small>
           <h2>{project.title}</h2>
@@ -386,7 +310,6 @@ function Projects() {
 
 function Music() {
   return <section className="music-layout">
-    <div className="album-art"><div className="disc" /><span>Now playing</span><h2>Currents<br />& Signals</h2><small>07 · July 2026</small></div>
     <div className="track-list">
       {tracks.map(([number, title, artist, time]) => <article key={title}><span>{number}</span><div><h3>{title}</h3><small>{artist}</small></div><time>{time}</time><button aria-label={`Play ${title}`}>▶</button></article>)}
     </div>
