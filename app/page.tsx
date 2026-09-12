@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-const tabs = ["About Me", "Projects", "Music"] as const;
+const tabs = ["About Me", "Projects", "Music", "Resume"] as const;
 type Tab = (typeof tabs)[number];
 
-const tabMeta: Record<Exclude<Tab, "About Me">, { eyebrow: string; title: string; intro: string }> = {
+const tabMeta: Record<Exclude<Tab, "About Me" | "Resume">, { eyebrow: string; title: string; intro: string }> = {
   Projects: {
     eyebrow: "Selected work · 2025—2026",
     title: "Systems, tools,\nand useful things.",
@@ -19,6 +19,13 @@ const tabMeta: Record<Exclude<Tab, "About Me">, { eyebrow: string; title: string
 };
 
 const projectCards = [
+  {
+    title: "Mavuno",
+    type: "In Progress · Cornell Hack4Impact",
+    copy: "An AI-powered platform helping families in Congo maintain their crops after volunteer farmers leave. I’m leading the product work with a team of designers and developers.",
+    tags: ["Product Management", "Social Impact"],
+    links: [],
+  },
   {
     title: "BobBee",
     type: "Automated intelligent sales outreach · July 2026",
@@ -86,17 +93,33 @@ const timeline = [
     date: "Aug 2024 — Dec 2027",
     title: "Cornell University",
     org: "Bowers College of Computing and Information Sciences",
-    copy: "B.A. in Information Science, concentrating in Networks, Crowds, and Markets. GPA 3.5. Coursework in business intelligence systems, object-oriented programming and data structures, data science in Python, probability and statistics, econometrics, and information ethics, law, and policy.",
+    copy: "B.A. in Information Science. GPA 3.5. Coursework in business intelligence systems, object-oriented programming and data structures, data science in Python, probability and statistics, econometrics, and information ethics, law, and policy.",
   },
 ];
 
+// Semester summaries use the documented role dates above; ongoing research spans 2024–2025.
+const chapters = [
+  { term: "Freshman Fall", season: "Fall 2024", period: "Semester 1", title: "Starting at Cornell", story: "I started studying Information Science at Cornell and joined the Phonetics Lab, working with speech and transcript data.", roles: [6, 5] },
+  { term: "Freshman Spring", season: "Spring 2025", period: "Semester 2", title: "Joining Hack4Impact as a Developer", story: "I joined Hack4Impact as a developer while continuing my research at the Cornell Phonetics Lab.", roles: [5] },
+  { term: "Study Abroad in Taiwan", season: "Summer 2025", period: "Summer", title: "Study Abroad in Taiwan", story: "I spent the summer studying abroad in Taiwan.", roles: [] },
+  { term: "Sophomore Fall", season: "Fall 2025", period: "Semester 3", title: "Exploring Data and Community Health", story: "Alongside my final semester in the lab, I analyzed how community and environmental factors relate to county-level health outcomes. That winter, I began working on engagement and acquisition at Timing.", roles: [5, 4] },
+  { term: "Sophomore Spring", season: "Spring 2026", period: "Semester 4", title: "Building With Nonprofits", story: "At Hack4Impact, I moved into product strategy and development: talking with nonprofit partners and building tools for endowment and textile inventory management.", roles: [4, 3] },
+  { term: "Sales Engineering at IBM in Atlanta, Georgia", season: "Summer 2026", period: "Summer", title: "Sales Engineering at IBM", story: "At IBM, I worked directly with sellers, built outreach tools, and gave live demos. I also began leading a Hack4Impact team as a technical product manager.", roles: [2, 1] },
+  { term: "Junior Fall", season: "Fall 2026 · Now", period: "Semester 5 · Now", title: "Leading Products and Teaching", story: "I’m leading Mavuno at Hack4Impact and working as a teaching assistant for INFO 2850 at Cornell.", roles: [1, 0] },
+];
+
 const skillGroups = [
-  ["Programming & web", "Python · Java · JavaScript · TypeScript · R · SQL"],
+  ["Programming & Web", "Python · Java · JavaScript · TypeScript · R · SQL"],
   ["Frameworks", "React · Next.js · Express · Flask · HTML/CSS"],
-  ["Data & analysis", "Pandas · NumPy · SciPy · Scikit-learn · Statsmodels · Matplotlib · Plotly"],
-  ["Tools & platforms", "PostgreSQL · Firebase · Git · Figma · watsonx · Salesforce · Salesloft"],
+  ["Data & Analysis", "Pandas · NumPy · SciPy · Scikit-learn · Statsmodels · Matplotlib · Plotly"],
+  ["Tools & Platforms", "PostgreSQL · Firebase · Git · Figma · watsonx · Salesforce · Salesloft"],
   ["Product", "PRDs & SDDs · Roadmapping · Agile sprints · Client discovery · User research"],
 ];
+
+const techIcons: Record<string, string> = {
+  Python: "python", React: "react", TypeScript: "typescript", JavaScript: "javascript",
+  PostgreSQL: "postgresql", Figma: "figma", Git: "git", NumPy: "numpy",
+};
 
 const tracks = [
   ["01", "Eusexua", "Fka twigs", "04:23"],
@@ -112,24 +135,8 @@ function Arrow() {
 
 export default function Home() {
   const [active, setActive] = useState<Tab>("About Me");
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      const current = tabs.indexOf(active);
-      const next = event.key === "ArrowRight"
-        ? (current + 1) % tabs.length
-        : (current - 1 + tabs.length) % tabs.length;
-      setActive(tabs[next]);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
-
   const selectTab = (tab: Tab) => {
     setActive(tab);
-    setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -139,7 +146,7 @@ export default function Home() {
         <button className="wordmark" onClick={() => selectTab("About Me")} aria-label="Sydney Chin — About Me">
           <span className="name">Sydney Chin</span>
         </button>
-        <nav className={menuOpen ? "nav open" : "nav"} aria-label="Primary navigation">
+        <nav className="nav" aria-label="Primary navigation">
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -151,19 +158,15 @@ export default function Home() {
             </button>
           ))}
         </nav>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle navigation">
-          <span />
-          <span />
-        </button>
       </header>
 
       <div className="page-shell" key={active}>
-        {active === "About Me" ? <About /> : <Collection tab={active} />}
+        {active === "About Me" ? <About /> : active === "Resume" ? <Resume /> : <Collection tab={active} />}
       </div>
 
       <footer>
         <span>© 2026 Sydney Chin</span>
-        <span className="footer-center">Ithaca, NY</span>
+        <span className="footer-center">Sleepy Hollow, NY</span>
       </footer>
     </main>
   );
@@ -171,10 +174,9 @@ export default function Home() {
 
 function About() {
   const photos = [
-    { src: "/media/sydney-with-bob.jpg", alt: "Sydney holding a Bob cutout at the IBMer watsonx Challenge", position: "48% center" },
-    { src: "/media/ropes.JPG", alt: "Sydney climbing a rope structure in the evening sunshine", position: "center center" },
-    { src: "/media/ai-engineer.png", alt: "Sydney with a colleague at the watsonx event", position: "85% center" },
-    { src: "/media/curvy-tree.jpg", alt: "Sydney standing beside a curved evergreen tree on campus", position: "center center" },
+    { src: "/media/sydney-with-bob.jpg", caption: "Summer 2026 - IBM Bob Event", alt: "Sydney holding a Bob cutout at the IBMer watsonx Challenge", position: "left top", zoom: 1.16 },
+    { src: "/media/sydney-headshot.jpg", caption: "Spring 2025 - Headshot", alt: "Sydney in a black blazer in a sunlit hallway", position: "center 58%", zoom: 1.22 },
+    { src: "/media/curvy-tree.jpg", caption: "Spring 2026 - Funny tree outside my dorm", alt: "Sydney standing beside a curved evergreen tree on campus", position: "right center", zoom: 1.11 },
   ];
   const [photo, setPhoto] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -202,54 +204,55 @@ function About() {
     <>
       <section className="hero">
         <div className="hero-intro">
-          <div className="hero-kicker">About me · Based in Ithaca and New York</div>
-          <h1>Hi, my name<br />is <span>Sydney.</span></h1>
+          <h1>Hi, I&apos;m <span className="name-accent">Sydney.</span></h1>
           <p>
-            I&apos;m a junior at Cornell studying Information Science, concentrating in Networks,
-            Crowds, and Markets. I sit between product, sales, and data—most recently building
-            outreach automation at IBM and leading a Hack4Impact team building software for nonprofits.
+            I&apos;m a junior at Cornell majoring in information science. I&apos;m interested in enterprise technology, solutions architecture, product strategy, and client-facing sales engineering.
           </p>
-          <div className="social-links" aria-label="Social links">
-            <a href="https://www.linkedin.com/in/sydney-chin/" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-            <a href="https://github.com/nysdey" target="_blank" rel="noreferrer">GitHub <Arrow /></a>
-            <a href="mailto:scc273@cornell.edu">Email <Arrow /></a>
-          </div>
           <dl className="quick-facts">
             <div>
               <dt>Education</dt>
-              <dd>Cornell University · B.A. Information Science, Networks, Crowds &amp; Markets · Dec 2027</dd>
+              <dd><ul><li>Cornell University · B.A. Information Science</li><li>August 2024 – December 2027</li></ul></dd>
             </div>
             <div>
               <dt>Now</dt>
-              <dd>IBM Campus Ambassador · Technical Product Manager at Cornell Hack4Impact</dd>
+              <dd><ul><li>Technical Product Manager @ Cornell Hack4Impact</li><li>Teaching Assistant for INFO 2850 @ Cornell Bowers College of Computing and Information Science</li></ul></dd>
             </div>
             <div>
-              <dt>Focus</dt>
-              <dd>Technical product management · Sales engineering · Data analysis</dd>
-            </div>
-            <div>
-              <dt>Interests</dt>
-              <dd>Coffee · Music · Writing · Travel</dd>
+              <dt>Previously</dt>
+              <dd><ul><li>Sales Engineer Intern @ IBM</li><li>Developer @ Cornell Hack4Impact</li><li>Research Assistant @ Cornell Phonetics Lab</li></ul></dd>
             </div>
           </dl>
+          <div className="social-links" aria-label="Social links">
+            <a href="https://www.linkedin.com/in/sydney-chin/" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn"><span className="linkedin-mark" aria-hidden="true">in</span></a>
+            <a href="https://github.com/nysdey" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><img src="/icons/github.svg" alt="" width="22" height="22" /></a>
+            <a href="mailto:scc273@cornell.edu" aria-label="Email Sydney" title="Email"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 6 9 7 9-7" /></svg></a>
+          </div>
         </div>
         <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photos of Sydney"
-          onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-          <div className="photo-frame">
+          onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+          onFocusCapture={() => setPlaying(false)}>
+          <div className="photo-frame" tabIndex={0} aria-label={photos[photo].caption}>
             {photos.map((item, index) => (
               <img
                 key={item.src}
                 src={item.src}
                 alt={item.alt}
+                style={{ objectPosition: item.position, transform: `scale(${item.zoom ?? 1})`, transformOrigin: item.position }}
                 aria-hidden={index !== photo}
                 className={index === photo ? "carousel-photo active" : "carousel-photo"}
               />
             ))}
+            <div className="photo-caption" aria-hidden="true">{photos[photo].caption}</div>
           </div>
           <div className="carousel-controls">
-            <span>{photo + 1} / {photos.length}</span>
+            <div className="carousel-dots" role="group" aria-label="Choose a photo">
+              {photos.map((item, index) => (
+                <button key={item.src} className={index === photo ? "carousel-dot active" : "carousel-dot"}
+                  onClick={() => showPhoto(index)} aria-label={`Show photo ${index + 1}`}
+                  aria-pressed={index === photo} />
+              ))}
+            </div>
             <div>
-              <button className="rotation-button" onClick={() => setPlaying((current) => !current)} aria-label={playing ? "Pause photo rotation" : "Start photo rotation"}>{playing ? "Pause" : "Play"}</button>
               <button onClick={() => showPhoto(photo - 1)} aria-label="Previous photo">←</button>
               <button onClick={() => showPhoto(photo + 1)} aria-label="Next photo">→</button>
             </div>
@@ -258,37 +261,55 @@ function About() {
       </section>
 
       <section className="experience-section">
-        <h2 className="section-label">Experience</h2>
-        <div className="timeline">
-          {timeline.map((item) => (
-            <article className="timeline-item" key={item.date + item.title}>
-              <time>{item.date}</time>
-              <div>
-                <h2>{item.title}</h2>
-                <small>{item.org}</small>
-                <p>{item.copy}</p>
-              </div>
-            </article>
+        <h2 className="section-label">Timeline</h2>
+        <ol className="story-timeline">
+          {chapters.map((chapter) => (
+            <li className="story-chapter" key={chapter.term}>
+              <h3 className="story-date"><span className="story-season">{chapter.season.replace(" · Now", "")}</span><span className="story-divider" aria-hidden="true">|</span><span>{chapter.period}</span></h3>
+              <h4 className="story-title">{chapter.title}</h4>
+              <p>{chapter.story}</p>
+              <details>
+                <summary aria-label={`Details for ${chapter.term}`}><span aria-hidden="true">+</span></summary>
+                <div className="chapter-details">
+                  {chapter.roles.length === 0 && <p>Study Abroad · Taiwan · Summer 2025</p>}
+                  {chapter.roles.map((index) => (
+                    <article key={timeline[index].title}>
+                      <h4>{timeline[index].title}</h4>
+                      <small>{timeline[index].org} · {timeline[index].date}</small>
+                      <p>{timeline[index].copy}</p>
+                    </article>
+                  ))}
+                </div>
+              </details>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       <section className="toolkit-section">
-        <h2 className="section-label">Toolkit</h2>
-        <dl className="toolkit-grid">
+        <h2 className="section-label">Skills</h2>
+        <div className="tech-grid">
           {skillGroups.map(([label, value]) => (
-            <div key={label}>
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </div>
+            <section className="tech-group" key={label} aria-label={label}>
+              <h3>{label}</h3>
+              <ul>
+                {value.split(" · ").map((name) => (
+                  <li key={name}>
+                    {techIcons[name] ? <img src={`/icons/${techIcons[name]}.svg`} alt="" width="20" height="20" loading="lazy" /> : <span className="tech-monogram" aria-hidden="true">{name === "SQL" ? "DB" : name.slice(0, 2)}</span>}
+                    <span>{name}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
-        </dl>
+        </div>
       </section>
     </>
   );
 }
 
-function Collection({ tab }: { tab: Exclude<Tab, "About Me"> }) {
+function Collection({ tab }: { tab: Exclude<Tab, "About Me" | "Resume"> }) {
+  if (tab === "Projects") return <Projects />;
   const meta = tabMeta[tab];
   return (
     <>
@@ -299,14 +320,13 @@ function Collection({ tab }: { tab: Exclude<Tab, "About Me"> }) {
         </div>
         <p>{meta.intro}</p>
       </section>
-      {tab === "Projects" && <Projects />}
       {tab === "Music" && <Music />}
     </>
   );
 }
 
 function Projects() {
-  return <section className="project-list">
+  return <section className="project-list" aria-label="Projects">
     {projectCards.map((project) => (
       <article className="project-card" key={project.title}>
         <div className="project-info">
@@ -324,6 +344,7 @@ function Projects() {
             ))}
           </div>
         </div>
+        {project.title === "Mavuno" ? <MavunoCarousel /> : <div className="project-media" aria-label={`Images for ${project.title} coming soon`}><span>Project images coming soon</span></div>}
       </article>
     ))}
   </section>;
@@ -332,7 +353,51 @@ function Projects() {
 function Music() {
   return <section className="music-layout">
     <div className="track-list">
-      {tracks.map(([number, title, artist, time]) => <article key={title}><span>{number}</span><div><h3>{title}</h3><small>{artist}</small></div><time>{time}</time><button aria-label={`Play ${title}`}>▶</button></article>)}
+      {tracks.map(([number, title, artist, time]) => <article key={title}><span>{number}</span><div><h3>{title}</h3><small>{artist}</small></div><time>{time}</time></article>)}
     </div>
   </section>;
+}
+
+function Resume() {
+  return <section className="resume-page" aria-label="Resume">
+    <div className="resume-placeholder">
+      <h1>Resume</h1>
+      <p>PDF coming soon.</p>
+    </div>
+  </section>;
+}
+
+const mavunoSlides = [
+  "Mavuno project overview — Hack4Impact, Fall 2026",
+  "What is Mavuno? Farmer, agronomist, and staff workflows",
+  "Mavuno architecture — mobile app, admin dashboard, backend, and AI",
+  "Mavuno development subprojects and their connections",
+];
+
+function MavunoCarousel() {
+  const [slide, setSlide] = useState(0);
+  const navigate = (next: number) => setSlide((next + mavunoSlides.length) % mavunoSlides.length);
+  return <div className="project-carousel" role="region" aria-roledescription="carousel" aria-label="Mavuno project slides"
+    onKeyDown={(event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        navigate(slide + (event.key === "ArrowRight" ? 1 : -1));
+      }
+    }}>
+    <div className="project-slide-frame">
+      {mavunoSlides.map((alt, index) => <img key={alt} src={`/media/mavuno-${index + 1}.png`} alt={alt}
+        className={index === slide ? "project-slide active" : "project-slide"} aria-hidden={index !== slide} />)}
+    </div>
+    <div className="carousel-controls">
+      <div className="carousel-dots" role="group" aria-label="Choose a Mavuno slide">
+        {mavunoSlides.map((alt, index) => <button key={alt} className={index === slide ? "carousel-dot active" : "carousel-dot"}
+          aria-label={`Show slide ${index + 1}: ${alt}`} aria-pressed={index === slide} onClick={() => navigate(index)} />)}
+      </div>
+      <div>
+        <button onClick={() => navigate(slide - 1)} aria-label="Previous Mavuno slide">←</button>
+        <button onClick={() => navigate(slide + 1)} aria-label="Next Mavuno slide">→</button>
+      </div>
+    </div>
+    <span className="sr-only" aria-live="polite">Slide {slide + 1} of {mavunoSlides.length}: {mavunoSlides[slide]}</span>
+  </div>;
 }
