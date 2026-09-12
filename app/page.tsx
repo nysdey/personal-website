@@ -224,9 +224,10 @@ export default function Home() {
 
 function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
   const photos = [
-    { src: "/photos/placeholder-1.jpg", alt: "A weathered white wall and bench" },
-    { src: "/photos/placeholder-2.jpg", alt: "A sunlit courtyard with laundry overhead" },
-    { src: "/photos/placeholder-3.jpg", alt: "A modern architectural interior" },
+    { src: "/media/sydney-with-bob.jpg", alt: "Sydney holding a Bob cutout at the IBMer watsonx Challenge", position: "48% center" },
+    { src: "/media/ropes.JPG", alt: "Sydney climbing a rope structure in the evening sunshine", position: "center center" },
+    { src: "/media/ai-engineer.png", alt: "Sydney with a colleague at the watsonx event", position: "85% center" },
+    { src: "/media/curvy-tree.jpg", alt: "Sydney standing beside a curved evergreen tree on campus", position: "center center" },
   ];
   const [photo, setPhoto] = useState(0);
   const showPhoto = (next: number) => setPhoto((next + photos.length) % photos.length);
@@ -266,17 +267,18 @@ function About({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
             </div>
           </dl>
         </div>
-        <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photo placeholders">
+        <div className="photo-carousel" aria-roledescription="carousel" aria-label="Photos of Sydney">
           <div className="photo-frame">
             {photos.map((item, index) => (
               <img
                 key={item.src}
                 src={item.src}
                 alt={item.alt}
+                style={{ objectPosition: item.position }}
+                aria-hidden={index !== photo}
                 className={index === photo ? "carousel-photo active" : "carousel-photo"}
               />
             ))}
-            <span className="photo-placeholder-note">Temporary photo</span>
           </div>
           <div className="carousel-controls">
             <span>{String(photo + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}</span>
