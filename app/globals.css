@@ -620,3 +620,49 @@ h1, .hero h1, .collection-hero h1 { font-weight: 500; }
 .project-info { align-self: start; padding: 0; }
 .project-card > .project-media, .project-card > .project-carousel, .project-card > .project-video { margin: 0; }
 @media (max-width: 700px) { .project-card { gap: 24px; } }
+
+.mobile-menu-toggle { display: none; }
+.story-chapter .timeline-heading { margin: 0 0 10px; padding: 0; }
+.timeline-entry-toggle { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; color: #fff; cursor: pointer; text-align: left; }
+.timeline-entry-copy { display: flex; flex-direction: column; gap: 8px; }
+.timeline-entry-date { font-size: var(--text-item); color: var(--accent-action); font-weight: 500; line-height: 1.4; }
+.timeline-entry-title { font-size: var(--text-label); line-height: 1.5; font-weight: 500; }
+.timeline-entry-toggle .timeline-symbol { width: 44px; flex-shrink: 0; text-align: center; }
+.timeline-entry-toggle:hover .timeline-entry-title { color: var(--accent-action); }
+@media (max-width: 600px) {
+  .hero { row-gap: 0; }
+  .hero-intro { display: contents; }
+  .hero-intro > h1 { order: 0; }
+  .hero-intro > p { order: 1; margin-top: 24px; }
+  .hero > .photo-carousel { order: 2; margin-top: 28px; }
+  .hero-intro > .quick-facts { order: 3; width: 100%; margin-top: 24px; }
+  .hero-intro > .social-links { order: 4; }
+  .site-header { min-height: 62px; height: 62px; flex-wrap: nowrap; padding-top: 0; }
+  .mobile-menu-toggle { display: flex; margin-left: auto; width: 44px; height: 44px; border: 0; background: transparent; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; }
+  .mobile-menu-toggle span { width: 20px; height: 2px; background: #fff; }
+  .nav { display: none; }
+  .nav.open { display: flex; position: absolute; left: 0; right: 0; top: 62px; width: auto; flex-direction: column; gap: 0; padding: 12px 20px; background: #181818; border-bottom: 1px solid var(--line); }
+  .nav.open .nav-item { text-align: left; min-height: 48px; }
+}
+
+/* Dark graphite with a restrained silver reflection. */
+body { background: repeating-linear-gradient(180deg, #0b0b0c 0px, #121213 340px, #202022 550px, #2c2d2f 640px, #202022 730px, #121213 960px, #0b0b0c 1280px); background-attachment: scroll; }
+
+/* Reflections follow section boundaries instead of fixed page intervals. */
+body { background: #101011; }
+.experience-section, .toolkit-section, footer { position: relative; isolation: isolate; }
+.experience-section::before, .toolkit-section::before, footer::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  top: -64px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 128px;
+  background: linear-gradient(180deg, transparent 0%, rgba(144,148,156,.035) 25%, rgba(171,175,183,.14) 50%, rgba(144,148,156,.035) 75%, transparent 100%);
+}
+
+.experience-section::before, .toolkit-section::before, footer::before { display: none; }
+body { background: repeating-linear-gradient(180deg, #0d0d0e 0px, #151516 320px, #232426 640px, #151516 960px, #0d0d0e 1280px); background-attachment: scroll; }

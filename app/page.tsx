@@ -215,8 +215,10 @@ function Arrow() {
 
 export default function Home() {
   const [active, setActive] = useState<Tab>("About Me");
+  const [menuOpen, setMenuOpen] = useState(false);
   const selectTab = (tab: Tab) => {
     setActive(tab);
+    setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -226,7 +228,8 @@ export default function Home() {
         <button className="wordmark" onClick={() => selectTab("About Me")} aria-label="Sydney Chin — About Me">
           <span className="name">Sydney Chin</span>
         </button>
-        <nav className="nav" aria-label="Primary navigation">
+        <button className="mobile-menu-toggle" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="primary-nav" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
+        <nav id="primary-nav" className={menuOpen ? "nav open" : "nav"} aria-label="Primary navigation" onKeyDown={(event) => { if (event.key === "Escape") { setMenuOpen(false); document.querySelector<HTMLButtonElement>(".mobile-menu-toggle")?.focus(); } }}>
           {tabs.map((tab) => (
             <button
               key={tab}
@@ -346,14 +349,14 @@ function About() {
         <ol className="story-timeline">
           {[...chapters].reverse().map((chapter) => (
             <li className="story-chapter" key={chapter.term}>
-              <h3 className="story-date"><span className="story-season">{chapter.season.replace(" · Now", "")}</span></h3>
-              <h4 className="story-title">{chapter.title}</h4>
               <span className={expandedChapters.includes(chapter.term) ? "timeline-marker expanded" : "timeline-marker"} aria-hidden="true" />
-              <button className="timeline-toggle" aria-label={`${expandedChapters.includes(chapter.term) ? "Hide" : "Show"} details for ${chapter.term}`}
-                aria-expanded={expandedChapters.includes(chapter.term)}
-                onClick={() => setExpandedChapters((current) => current.includes(chapter.term) ? current.filter((term) => term !== chapter.term) : [...current, chapter.term])}>
-                <span className="timeline-symbol" aria-hidden="true">{expandedChapters.includes(chapter.term) ? "−" : "+"}</span>
-              </button>
+              <h3 className="timeline-heading">
+                <button className="timeline-entry-toggle" aria-expanded={expandedChapters.includes(chapter.term)}
+                  onClick={() => setExpandedChapters((current) => current.includes(chapter.term) ? current.filter((term) => term !== chapter.term) : [...current, chapter.term])}>
+                  <span className="timeline-entry-copy"><span className="timeline-entry-date">{chapter.season.replace(" · Now", "")}</span><span className="timeline-entry-title">{chapter.title}</span></span>
+                  <span className="timeline-symbol" aria-hidden="true">{expandedChapters.includes(chapter.term) ? "−" : "+"}</span>
+                </button>
+              </h3>
               <div hidden={!expandedChapters.includes(chapter.term)}>
                 <p>{chapter.story}</p>
                 <div className="chapter-details">
