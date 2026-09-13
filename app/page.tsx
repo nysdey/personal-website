@@ -120,7 +120,7 @@ const chapters = [
   {
     "term": "Freshman Fall",
     "season": "Fall 2024",
-    "title": "Starting freshman year at Cornell",
+    "title": "Started freshman year at Cornell",
     "story": "I began studying Information Science and joined the Phonetics Lab, putting data analysis into practice through speech research.",
     "roles": [
       6,
@@ -130,7 +130,7 @@ const chapters = [
   {
     "term": "Freshman Spring",
     "season": "Spring 2025",
-    "title": "Building with Hack4Impact and teaching coding",
+    "title": "Built with Hack4Impact and taught coding",
     "story": "I joined Hack4Impact as a full-stack developer and volunteered with Girls Who Code, expanding from research into building software and helping others learn.",
     "roles": [
       3,
@@ -140,14 +140,14 @@ const chapters = [
   {
     "term": "Study Abroad in Taiwan",
     "season": "Summer 2025",
-    "title": "Study abroad in Taiwan",
+    "title": "Studied abroad in Taiwan",
     "story": "I spent the summer studying abroad in Taiwan.",
     "roles": []
   },
   {
     "term": "Sophomore Fall",
     "season": "Fall 2025",
-    "title": "Starting sophomore year: data and community impact",
+    "title": "Started sophomore year exploring data and community impact",
     "story": "I continued developing nonprofit tools at Hack4Impact, completed my time in the Phonetics Lab, and explored county-level health outcomes through a data analysis project.",
     "roles": [
       3,
@@ -158,7 +158,7 @@ const chapters = [
   {
     "term": "Sophomore Spring",
     "season": "Spring 2026",
-    "title": "From development to product leadership",
+    "title": "Moved from development into product leadership",
     "story": "I worked on engagement and acquisition at Timing, continued building nonprofit software, and stepped into the product manager and technical lead role for Mavuno in May.",
     "roles": [
       4,
@@ -169,7 +169,7 @@ const chapters = [
   {
     "term": "Summer at IBM",
     "season": "Summer 2026",
-    "title": "Sales engineering at IBM in Georgia",
+    "title": "Worked in sales engineering at IBM in Georgia",
     "story": "I connected technical solutions with client needs through sales outreach, internal tools, and live demonstrations at IBM, while continuing to lead Mavuno.",
     "roles": [
       2,

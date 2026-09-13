@@ -9,7 +9,7 @@ const interSans = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sydney-chin.sydneychin13.chatgpt.site"),
-  title: "Sydney Chin — Product, Data & Curious Things",
+  title: "Sydney Chin | Portfolio",
   description:
     "The personal portfolio of Sydney Chin: Information Science student at Cornell working across technical product management, sales engineering, and data analysis.",
   openGraph: {
