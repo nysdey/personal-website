@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-const tabs = ["About Me", "Projects", "Music", "Resume"] as const;
-type Tab = (typeof tabs)[number];
+const tabs = ["About Me", "Projects", "Resume"] as const;
+type Tab = (typeof tabs)[number] | "Music";
 
 const tabMeta: Record<Exclude<Tab, "About Me" | "Resume">, { eyebrow: string; title: string; intro: string }> = {
   Projects: {
@@ -54,58 +54,138 @@ const projectCards = [
 
 const timeline = [
   {
-    date: "Aug 2026 — Present",
-    title: "Cornell Campus Ambassador",
-    org: "IBM · Ithaca, NY",
-    copy: "Serve as a liaison between IBM and Cornell, bringing IBM SkillsBuild and watsonx Bob learning opportunities to campus. Expanding and piloting the ambassador program, and collaborating with Hack4Impact on sponsored events like Bobathons, SkillsBuild workshops, and campus AI-learning events.",
+    "date": "Summer 2026",
+    "title": "IBM campus ambassador selection",
+    "org": "IBM",
+    "copy": "Selected as a campus ambassador and invited to speak at the IBM US College & University Tech Talk following my internship."
   },
   {
-    date: "May 2026 — Present",
-    title: "Technical Product Manager",
-    org: "Cornell Hack4Impact · Ithaca, NY",
-    copy: "Lead a subteam of designers and developers building an AI-powered platform that helps families in Congo maintain their crops after volunteer farmers leave. Own the PRD, SDD, and semester roadmap; write and assign tickets weekly; meet with clients weekly.",
+    "date": "May 2026 — Present",
+    "title": "Product manager / technical lead — Mavuno",
+    "org": "Cornell Hack4Impact · Ithaca, NY",
+    "copy": "Lead four developers and two designers building a mobile and web platform connecting farmers in the Democratic Republic of Congo with continued agricultural support. Own the PRD, SDD, and two-semester roadmap; translate literacy, connectivity, language, and cost constraints into requirements. Drive sprint planning, review technical and design work, mentor an Associate PM, and lead biweekly client meetings."
   },
   {
-    date: "May 2026 — Aug 2026",
-    title: "Technical Sales Solutions Intern",
-    org: "IBM · Brookhaven, GA",
-    copy: "Interviewed sellers to find workflow bottlenecks, then wrote and tested outreach scripts and analyzed results by industry, IT spend, and revenue. Built internal tools to automate personalized outreach and authored documentation handed to the Senior State Executive/VP. Led live watsonx Bob demos at the in-person WatsonX event. Ranked top five among interns: 11.1% call-connection rate, 2.4% positive-call rate.",
+    "date": "May 2026 — Aug 2026",
+    "title": "Technical sales solutions intern",
+    "org": "IBM · Brookhaven, GA",
+    "copy": "Prospected accounts across four U.S. regions for IBM hybrid cloud solutions and interviewed sellers to uncover workflow bottlenecks. Built personalized outreach tools, presented proofs of concept to Georgia leadership, and led live watsonx demonstrations. Ranked among the top five interns, with an 11.1% call-connection rate and 2.4% positive-call rate."
   },
   {
-    date: "Feb 2026 — May 2026",
-    title: "Product Strategist & Developer",
-    org: "Cornell Hack4Impact · Ithaca, NY",
-    copy: "Sourced and vetted social-impact nonprofits, led exploratory calls, and drafted technical solution outlines. Shipped features for the Endowment Manager (a full-stack PERN app for small nonprofits) and built inventory management for the Hudson Valley Textile Project's Northeast Fiber Exchange, tracking wool expiration and delivering real-time inventory during sales.",
+    "date": "Feb 2025 — May 2026",
+    "title": "Full-stack developer",
+    "org": "Cornell Hack4Impact · Ithaca, NY",
+    "copy": "Developed an endowment manager for small organizations and an inventory system for the Hudson Valley Textile Project. Implemented weekly engineering tickets across Agile sprints, explored nonprofit partners’ technical needs, and helped organizations adopt and customize Hack4Impact products."
   },
   {
-    date: "Dec 2025 — Feb 2026",
-    title: "Business Analyst Intern",
-    org: "Timing LLC · Remote",
-    copy: "Built WAU engagement models, ideal customer profiles, and user surveys. Developed a campus acquisition plan, led sponsorship outreach, and wrote the newsletter.",
+    "date": "Dec 2025 — Feb 2026",
+    "title": "Business analyst intern",
+    "org": "Timing LLC · Remote",
+    "copy": "Built weekly active user models and surveys to assess engagement, developed ideal customer profiles and a campus acquisition strategy, and wrote newsletters."
   },
   {
-    date: "Aug 2024 — Dec 2025",
-    title: "Research Assistant",
-    org: "Cornell Phonetics Lab · Ithaca, NY",
-    copy: "Analyzed speech-transcript data with Python, NumPy, SciPy, and Matplotlib. Built a reproducible TextGrid-processing workflow and mentored seven research assistants.",
+    "date": "Aug 2024 — Dec 2025",
+    "title": "Research assistant",
+    "org": "Cornell Phonetics Lab · Ithaca, NY",
+    "copy": "Analyzed speech and transcript data using Python, NumPy, SciPy, and Matplotlib. Built a TextGrid workflow and mentored seven research assistants."
   },
   {
-    date: "Aug 2024 — Dec 2027",
-    title: "Cornell University",
-    org: "Bowers College of Computing and Information Sciences",
-    copy: "B.A. in Information Science. GPA 3.5. Coursework in business intelligence systems, object-oriented programming and data structures, data science in Python, probability and statistics, econometrics, and information ethics, law, and policy.",
+    "date": "Aug 2024 — Dec 2027 (Expected)",
+    "title": "B.A. in Information Science",
+    "org": "Cornell University · Ithaca, NY",
+    "copy": "Studying Information Science at Cornell Bowers, with coursework in data structures, data science, probability and statistics, networks, economics, and information ethics."
   },
+  {
+    "date": "Aug 2026 — Present",
+    "title": "Teaching assistant — INFO 2850: Networks",
+    "org": "Cornell University · Ithaca, NY",
+    "copy": "Lead weekly office hours for a course of more than 300 students covering network analysis, game theory, markets, and strategic interaction. Grade coursework and support students through the course forum."
+  },
+  {
+    "date": "Feb 2025 — May 2025",
+    "title": "Volunteer instructor — advanced coding class",
+    "org": "Girls Who Code · Ithaca, NY",
+    "copy": "Taught middle and high school students HTML, CSS, and game development in weekly 1.5-hour classes."
+  },
+  {
+    "date": "Fall 2025",
+    "title": "County-level health & community factors analysis",
+    "org": "Data Analysis Project",
+    "copy": "Modeled relationships between environmental, socioeconomic, and behavioral factors and mental and physical health outcomes across U.S. counties, identifying environmental accessibility as a potential policy lever."
+  }
 ];
 
-// Semester summaries use the documented role dates above; ongoing research spans 2024–2025.
+// Resume-grounded chronology; Taiwan study abroad supplied separately.
 const chapters = [
-  { term: "Freshman Fall", season: "Fall 2024", period: "Semester 1", title: "Starting at Cornell", story: "I started studying Information Science at Cornell and joined the Phonetics Lab, working with speech and transcript data.", roles: [6, 5] },
-  { term: "Freshman Spring", season: "Spring 2025", period: "Semester 2", title: "Joining Hack4Impact as a Developer", story: "I joined Hack4Impact as a developer while continuing my research at the Cornell Phonetics Lab.", roles: [5] },
-  { term: "Study Abroad in Taiwan", season: "Summer 2025", period: "Summer", title: "Study Abroad in Taiwan", story: "I spent the summer studying abroad in Taiwan.", roles: [] },
-  { term: "Sophomore Fall", season: "Fall 2025", period: "Semester 3", title: "Exploring Data and Community Health", story: "Alongside my final semester in the lab, I analyzed how community and environmental factors relate to county-level health outcomes. That winter, I began working on engagement and acquisition at Timing.", roles: [5, 4] },
-  { term: "Sophomore Spring", season: "Spring 2026", period: "Semester 4", title: "Building With Nonprofits", story: "At Hack4Impact, I moved into product strategy and development: talking with nonprofit partners and building tools for endowment and textile inventory management.", roles: [4, 3] },
-  { term: "Sales Engineering at IBM in Atlanta, Georgia", season: "Summer 2026", period: "Summer", title: "Sales Engineering at IBM", story: "At IBM, I worked directly with sellers, built outreach tools, and gave live demos. I also began leading a Hack4Impact team as a technical product manager.", roles: [2, 1] },
-  { term: "Junior Fall", season: "Fall 2026 · Now", period: "Semester 5 · Now", title: "Leading Products and Teaching", story: "I’m leading Mavuno at Hack4Impact and working as a teaching assistant for INFO 2850 at Cornell.", roles: [1, 0] },
+  {
+    "term": "Freshman Fall",
+    "season": "Fall 2024",
+    "title": "Starting freshman year at Cornell",
+    "story": "I began studying Information Science and joined the Phonetics Lab, putting data analysis into practice through speech research.",
+    "roles": [
+      6,
+      5
+    ]
+  },
+  {
+    "term": "Freshman Spring",
+    "season": "Spring 2025",
+    "title": "Building with Hack4Impact and teaching coding",
+    "story": "I joined Hack4Impact as a full-stack developer and volunteered with Girls Who Code, expanding from research into building software and helping others learn.",
+    "roles": [
+      3,
+      8
+    ]
+  },
+  {
+    "term": "Study Abroad in Taiwan",
+    "season": "Summer 2025",
+    "title": "Study abroad in Taiwan",
+    "story": "I spent the summer studying abroad in Taiwan.",
+    "roles": []
+  },
+  {
+    "term": "Sophomore Fall",
+    "season": "Fall 2025",
+    "title": "Starting sophomore year: data and community impact",
+    "story": "I continued developing nonprofit tools at Hack4Impact, completed my time in the Phonetics Lab, and explored county-level health outcomes through a data analysis project.",
+    "roles": [
+      3,
+      5,
+      9
+    ]
+  },
+  {
+    "term": "Sophomore Spring",
+    "season": "Spring 2026",
+    "title": "From development to product leadership",
+    "story": "I worked on engagement and acquisition at Timing, continued building nonprofit software, and stepped into the product manager and technical lead role for Mavuno in May.",
+    "roles": [
+      4,
+      3,
+      1
+    ]
+  },
+  {
+    "term": "Summer at IBM",
+    "season": "Summer 2026",
+    "title": "Sales engineering at IBM in Georgia",
+    "story": "I connected technical solutions with client needs through sales outreach, internal tools, and live demonstrations at IBM, while continuing to lead Mavuno.",
+    "roles": [
+      2,
+      0
+    ]
+  },
+  {
+    "term": "Junior Fall",
+    "season": "Fall 2026 · Now",
+    "title": "Starting junior year: leading Mavuno and teaching networks",
+    "story": "I’m leading Mavuno’s product and technical work while helping students learn network analysis, game theory, and markets as a teaching assistant for INFO 2850.",
+    "roles": [
+      1,
+      7
+    ]
+  }
 ];
 
 const skillGroups = [
@@ -174,11 +254,12 @@ export default function Home() {
 
 function About() {
   const photos = [
+    { src: "/media/sydney-headshot.jpg", caption: "Spring 2025 - Headshot", alt: "Sydney in a black blazer in a sunlit hallway", position: "center center", zoom: 1.32 },
     { src: "/media/sydney-with-bob.jpg", caption: "Summer 2026 - IBM Bob Event", alt: "Sydney holding a Bob cutout at the IBMer watsonx Challenge", position: "left top", zoom: 1.16 },
-    { src: "/media/sydney-headshot.jpg", caption: "Spring 2025 - Headshot", alt: "Sydney in a black blazer in a sunlit hallway", position: "center 58%", zoom: 1.22 },
     { src: "/media/curvy-tree.jpg", caption: "Spring 2026 - Funny tree outside my dorm", alt: "Sydney standing beside a curved evergreen tree on campus", position: "right center", zoom: 1.11 },
   ];
   const [photo, setPhoto] = useState(0);
+  const [expandedChapters, setExpandedChapters] = useState<string[]>([]);
   const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
 
@@ -214,7 +295,7 @@ function About() {
               <dd><ul><li>Cornell University · B.A. Information Science</li><li>August 2024 – December 2027</li></ul></dd>
             </div>
             <div>
-              <dt>Now</dt>
+              <dt>Currently</dt>
               <dd><ul><li>Technical Product Manager @ Cornell Hack4Impact</li><li>Teaching Assistant for INFO 2850 @ Cornell Bowers College of Computing and Information Science</li></ul></dd>
             </div>
             <div>
@@ -263,24 +344,29 @@ function About() {
       <section className="experience-section">
         <h2 className="section-label">Timeline</h2>
         <ol className="story-timeline">
-          {chapters.map((chapter) => (
+          {[...chapters].reverse().map((chapter) => (
             <li className="story-chapter" key={chapter.term}>
-              <h3 className="story-date"><span className="story-season">{chapter.season.replace(" · Now", "")}</span><span className="story-divider" aria-hidden="true">|</span><span>{chapter.period}</span></h3>
+              <h3 className="story-date"><span className="story-season">{chapter.season.replace(" · Now", "")}</span></h3>
               <h4 className="story-title">{chapter.title}</h4>
-              <p>{chapter.story}</p>
-              <details>
-                <summary aria-label={`Details for ${chapter.term}`}><span aria-hidden="true">+</span></summary>
+              <span className={expandedChapters.includes(chapter.term) ? "timeline-marker expanded" : "timeline-marker"} aria-hidden="true" />
+              <button className="timeline-toggle" aria-label={`${expandedChapters.includes(chapter.term) ? "Hide" : "Show"} details for ${chapter.term}`}
+                aria-expanded={expandedChapters.includes(chapter.term)}
+                onClick={() => setExpandedChapters((current) => current.includes(chapter.term) ? current.filter((term) => term !== chapter.term) : [...current, chapter.term])}>
+                <span className="timeline-symbol" aria-hidden="true">{expandedChapters.includes(chapter.term) ? "−" : "+"}</span>
+              </button>
+              <div hidden={!expandedChapters.includes(chapter.term)}>
+                <p>{chapter.story}</p>
                 <div className="chapter-details">
                   {chapter.roles.length === 0 && <p>Study Abroad · Taiwan · Summer 2025</p>}
                   {chapter.roles.map((index) => (
                     <article key={timeline[index].title}>
                       <h4>{timeline[index].title}</h4>
-                      <small>{timeline[index].org} · {timeline[index].date}</small>
+                      <div className="role-meta"><small>{timeline[index].org}</small><small className="role-date">{timeline[index].date}</small></div>
                       <p>{timeline[index].copy}</p>
                     </article>
                   ))}
                 </div>
-              </details>
+              </div>
             </li>
           ))}
         </ol>
@@ -295,7 +381,7 @@ function About() {
               <ul>
                 {value.split(" · ").map((name) => (
                   <li key={name}>
-                    {techIcons[name] ? <img src={`/icons/${techIcons[name]}.svg`} alt="" width="20" height="20" loading="lazy" /> : <span className="tech-monogram" aria-hidden="true">{name === "SQL" ? "DB" : name.slice(0, 2)}</span>}
+                    {techIcons[name] ? <img src={`/icons/${techIcons[name]}.svg`} alt="" width="20" height="20" loading="lazy" /> : null}
                     <span>{name}</span>
                   </li>
                 ))}
@@ -330,8 +416,8 @@ function Projects() {
     {projectCards.map((project) => (
       <article className="project-card" key={project.title}>
         <div className="project-info">
-          <small>{project.type}</small>
           <h2>{project.title}</h2>
+          <small>{project.type}</small>
           <p>{project.copy}</p>
           <ul className="project-tags">
             {project.tags.map((tag) => <li key={tag}>{tag}</li>)}
@@ -344,7 +430,7 @@ function Projects() {
             ))}
           </div>
         </div>
-        {project.title === "Mavuno" ? <MavunoCarousel /> : <div className="project-media" aria-label={`Images for ${project.title} coming soon`}><span>Project images coming soon</span></div>}
+        {project.title === "Mavuno" ? <MavunoCarousel /> : project.title === "BobBee" ? <ProjectVideo videoId="FgoginwGPZo" name="BobBee" /> : project.title === "IBM Hive" ? <ProjectVideo videoId="-O5OVQGKkRs" name="IBM Hive" /> : <div className="project-media" aria-label={`Images for ${project.title} coming soon`}><span>Project images coming soon</span></div>}
       </article>
     ))}
   </section>;
@@ -360,10 +446,8 @@ function Music() {
 
 function Resume() {
   return <section className="resume-page" aria-label="Resume">
-    <div className="resume-placeholder">
-      <h1>Resume</h1>
-      <p>PDF coming soon.</p>
-    </div>
+    <a href="/Sydney_Chin_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Open resume PDF"><img className="resume-page-image" src="/media/resume-page-1.png" alt="Sydney Chin resume, page 1" /></a>
+    <a className="resume-download" href="/Sydney_Chin_Resume.pdf" download>Download Resume</a>
   </section>;
 }
 
@@ -399,5 +483,17 @@ function MavunoCarousel() {
       </div>
     </div>
     <span className="sr-only" aria-live="polite">Slide {slide + 1} of {mavunoSlides.length}: {mavunoSlides[slide]}</span>
+  </div>;
+}
+
+function ProjectVideo({ videoId, name }: { videoId: string; name: string }) {
+  const [playing, setPlaying] = useState(false);
+  return <div className="project-video">
+    {playing ? <iframe src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`} title={`${name} project demo`} allow="autoplay; encrypted-media; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen /> :
+      <button className="video-preview" onClick={() => setPlaying(true)} aria-label={`Play ${name} demo`}>
+        <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt={`${name} demo video preview`} />
+        <span className="video-play" aria-hidden="true">▶</span>
+        <span className="video-label">Watch {name} Demo</span>
+      </button>}
   </div>;
 }
